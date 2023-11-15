@@ -10,9 +10,11 @@ import nodemailer from "nodemailer";
 import * as uuid from "uuid";
 import fs from "node:fs";
 import bcrypt from "bcrypt";
+
 // fx
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Use the provided PORT or default to 3000
 const __dirname = process.cwd();
+
 const ACTIVE_CODES = new Set();
 if (!fs.existsSync("./tmp/memory.txt")) {
   fs.writeFileSync("./tmp/memory.txt", "", "utf-8");
@@ -218,14 +220,6 @@ server.on("upgrade", (req, socket, head) => {
   } else {
     socket.end();
   }
-});
-
-server.on("listening", () => {
-  console.log(`Server running at http://localhost:${PORT}/.`);
-});
-
-server.listen({
-  port: PORT
 });
 
 function hash(token) {
